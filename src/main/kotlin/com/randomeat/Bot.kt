@@ -60,12 +60,12 @@ class Bot(private val token: String) : TelegramLongPollingBot() {
                 isEmpty() -> {
                 }
                 size == 1 -> {
-                    execute(SendPhoto().setChatId(chatId).setPhoto(File(DRAWABLE_PATH + first())))
+                    execute(SendPhoto().setChatId(chatId).setPhoto(first(), javaClass.getResourceAsStream("/drawable/${first()}")))
                 }
                 else -> {
                     val media = arrayListOf<InputMediaPhoto>()
                     deliveryFood.screens.forEach {
-                        media.add(InputMediaPhoto().apply { setMedia(File(DRAWABLE_PATH + it), it) })
+                        media.add(InputMediaPhoto().apply { setMedia(javaClass.getResourceAsStream("/drawable/${it}"), it) })
                     }
 
                     val mediaGroup = SendMediaGroup()
